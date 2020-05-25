@@ -116,7 +116,7 @@ public class KantineSimulatie2 {
                 // maak persoon en dienblad aan, koppel ze
                 Persoon persoon = new Persoon();
                 Dienblad dienblad = new Dienblad(persoon);
-
+//
                 // en bedenk hoeveel artikelen worden gepakt
                 int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
 
