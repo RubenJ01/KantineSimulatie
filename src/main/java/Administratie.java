@@ -6,6 +6,7 @@ public class Administratie {
      * @param aantal
      * @return het gemiddelde
      */
+
     public double berekenGemiddeldAantal(int[] aantal) {
         // method body omitted
     }
@@ -16,6 +17,7 @@ public class Administratie {
      * @param omzet
      * @return het gemiddelde
      */
+
     public double berekenGemiddeldeOmzet(double[] omzet) {
         // method body omitted
     }
@@ -42,3 +44,5 @@ public class Administratie {
         return temp;
     }
 }
+
+

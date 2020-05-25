@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class KantineSimulatie {
+public class KantineSimulatie2 {
 
     // kantine
     private Kantine kantine;
@@ -10,6 +10,9 @@ public class KantineSimulatie {
 
     // random generator
     private Random random;
+
+    // aantal dagen
+    public static final int DAGEN = 7;
 
     // aantal artikelen
     private static final int AANTAL_ARTIKELEN = 4;
@@ -37,7 +40,7 @@ public class KantineSimulatie {
      * Constructor
      *
      */
-    public KantineSimulatie() {
+    public KantineSimulatie2() {
         kantine = new Kantine();
         random = new Random();
         int[] hoeveelheden =
@@ -51,9 +54,9 @@ public class KantineSimulatie {
      * Methode om een array van random getallen liggend tussen min en max van de gegeven lengte te
      * genereren
      *
-     * @param lengte
-     * @param min
-     * @param max
+     * @param lengte de lengte die van de array
+     * @param min minimale waarde
+     * @param max maximale waarde
      * @return De array met random getallen
      */
     private int[] getRandomArray(int lengte, int min, int max) {
@@ -68,8 +71,8 @@ public class KantineSimulatie {
     /**
      * Methode om een random getal tussen min(incl) en max(incl) te genereren.
      *
-     * @param min
-     * @param max
+     * @param min minimale waarde inclusief
+     * @param max maximale waarde inclusief
      * @return Een random getal
      */
     private int getRandomValue(int min, int max) {
@@ -80,7 +83,7 @@ public class KantineSimulatie {
      * Methode om op basis van een array van indexen voor de array artikelnamen de bijhorende array
      * van artikelnamen te maken
      *
-     * @param indexen
+     * @param indexen de indexen die corresponderen met de variabele artikelnamen
      * @return De array met artikelnamen
      */
     private String[] geefArtikelNamen(int[] indexen) {
@@ -98,26 +101,28 @@ public class KantineSimulatie {
      * Deze methode simuleert een aantal dagen
      * in het verloop van de kantine
      *
-     * @param dagen
+     * @param dagen het aantal dagen dat deze simulatie duurt
      */
     public void simuleer(int dagen) {
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = ... ;
+            int aantalpersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
 
                 // maak persoon en dienblad aan, koppel ze
+                Persoon persoon = new Persoon();
+                Dienblad dienblad = new Dienblad(persoon);
+
                 // en bedenk hoeveel artikelen worden gepakt
-                int aantalartikelen = ... ;
+                int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
-                array int[] tepakken = getRandomArray(
-                    aantalartikelen, 0, AANTAL_ARTIKELEN-1);
+                int[] tepakken = getRandomArray(aantalartikelen, 0, AANTAL_ARTIKELEN-1);
 
                 // vind de artikelnamen op basis van
                 // de indexen hierboven
@@ -125,17 +130,37 @@ public class KantineSimulatie {
 
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
-
+                kantine.loopPakSluitAan(dienblad, artikelen);
             }
 
             // verwerk rij voor de kassa
+            kantine.verwerkRijVoorKassa();
 
             // druk de dagtotalen af en hoeveel personen binnen
-
             // zijn gekomen
+            Kassa kassa = kantine.getKassa();
+            System.out.println("Aantal personen in kantine: " + aantalpersonen);
+            System.out.println("Aantal artikelen dat de kassa heeft gepasseerd: " + kassa.aantalArtikelen());
+            System.out.println("Aantal geld dat in de kassa zit: " + kassa.hoeveelheidGeldInKassa());
 
             // reset de kassa voor de volgende dag
-
+            kassa.resetKassa();
         }
+    }
+
+    /**
+     * Start een simulatie
+     */
+    public static void main(String[] args) {
+        int dagen;
+
+        if (args.length == 0) {
+            dagen = DAGEN;
+        } else {
+            dagen = Integer.parseInt(args[0]);
+        }
+
+        KantineSimulatie2 kantineSimulatie = new KantineSimulatie2();
+        kantineSimulatie.simuleer(dagen);
     }
 }

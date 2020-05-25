@@ -11,6 +11,7 @@ public class KantineAanbod {
      * eenlijst met prijzen en het derde argument is een lijst met hoeveelheden. Let op: de
      * dimensies van de drie arrays moeten wel gelijk zijn!
      */
+
     public KantineAanbod(String[] artikelnaam, double[] prijs, int[] hoeveelheid) {
         aanbod = new HashMap<String, ArrayList<Artikel>>();
         startVoorraad = new HashMap<String, Integer>();
@@ -26,6 +27,8 @@ public class KantineAanbod {
         }
     }
 
+
+
     private void vulVoorraadAan(String productnaam) {
         ArrayList<Artikel> huidigeVoorraad = aanbod.get(productnaam);
         int startHoeveelheid = startVoorraad.get(productnaam);
@@ -36,6 +39,8 @@ public class KantineAanbod {
         }
         aanbod.put(productnaam, huidigeVoorraad);
     }
+
+
 
     /*
      * Private methode om de lijst van artikelen te krijgen op basis van de naam van het artikel.
@@ -49,6 +54,7 @@ public class KantineAanbod {
      * Private methode om een Artikel van de stapel artikelen af te pakken. Retourneert null als de
      * stapel leeg is.
      */
+
     private Artikel getArtikel(ArrayList<Artikel> stapel) {
         if (stapel == null) {
             return null;
@@ -64,6 +70,8 @@ public class KantineAanbod {
         }
     }
 
+
+
     /**
      * Publieke methode om een artikel via naam van de stapel te pakken. Retouneert null als artikel
      * niet bestaat of niet op voorraad is.
@@ -71,7 +79,10 @@ public class KantineAanbod {
      * @param naam (van artikel)
      * @return artikel (of null)
      */
+
     public Artikel getArtikel(String productnaam) {
         return getArtikel(getArrayList(productnaam));
     }
 }
+
+

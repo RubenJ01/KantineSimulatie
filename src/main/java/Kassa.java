@@ -5,6 +5,7 @@ public class Kassa {
     private double totaalPrijs;
     private int aantalArtikelen;
 
+
     /**
      * Constructor
      */
@@ -51,5 +52,15 @@ public class Kassa {
     public void resetKassa() {
         totaalPrijs = 0;
         aantalArtikelen = 0;
+    }
+
+    public void berekenAantalArtikelenEnPrijs(Dienblad dienblad)
+    {
+        Iterator<Artikel> it = dienblad.lopenDoorArtikelen();
+        while(it.hasNext())
+        {
+           totaalPrijs += it.next().getPrijs();
+           aantalArtikelen++;
+        }
     }
 }
