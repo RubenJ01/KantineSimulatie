@@ -64,7 +64,6 @@ public class KantineSimulatie2 {
         for (int i = 0; i < lengte; i++) {
             temp[i] = getRandomValue(min, max);
         }
-
         return temp;
     }
 
@@ -88,12 +87,9 @@ public class KantineSimulatie2 {
      */
     private String[] geefArtikelNamen(int[] indexen) {
         String[] artikelen = new String[indexen.length];
-
         for (int i = 0; i < indexen.length; i++) {
             artikelen[i] = artikelnamen[indexen[i]];
-
         }
-
         return artikelen;
     }
 
@@ -109,15 +105,22 @@ public class KantineSimulatie2 {
         for(int i = 0; i < dagen; i++) {
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
 
             // laat de personen maar komen...
-            for (int j = 0; j < aantalpersonen; j++) {
+            for (int j = 0; j < getRandomValue(1, 100); j++) {
 
                 // maak persoon en dienblad aan, koppel ze
-                Persoon persoon = new Persoon();
+                int getal = getRandomValue(1, 100);
+                Persoon persoon;
+                if(getal == 1) {
+                    persoon = new KantineMedewerker();
+                } else if(getal > 1 && getal < 90) {
+                    persoon = new Student();
+                } else {
+                    persoon = new Docent();
+                }
                 Dienblad dienblad = new Dienblad(persoon);
-//
+                System.out.println(persoon.toString());
                 // en bedenk hoeveel artikelen worden gepakt
                 int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
 
@@ -140,7 +143,7 @@ public class KantineSimulatie2 {
             // druk de dagtotalen af en hoeveel personen binnen
             // zijn gekomen
             Kassa kassa = kantine.getKassa();
-            System.out.println("Aantal personen in kantine: " + aantalpersonen);
+            System.out.println("Aantal personen in kantine: " + 100);
             System.out.println("Aantal artikelen dat de kassa heeft gepasseerd: " + kassa.aantalArtikelen());
             System.out.println("Aantal geld dat in de kassa zit: " + kassa.hoeveelheidGeldInKassa());
 

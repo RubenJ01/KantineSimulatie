@@ -19,7 +19,7 @@ public class KantineAanbod {
         for (int i = 0; i < artikelnaam.length; i++) {
             ArrayList<Artikel> artikelen = new ArrayList<Artikel>();
             for (int j = 0; j < hoeveelheid[i]; j++) {
-                artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
+                artikelen.add(new Artikel(artikelnaam[i], (int) prijs[i]));
             }
             startVoorraad.put(artikelnaam[i], hoeveelheid[i]);
             prijzen.put(artikelnaam[i], prijs[i]);
@@ -28,14 +28,13 @@ public class KantineAanbod {
     }
 
 
-
     private void vulVoorraadAan(String productnaam) {
         ArrayList<Artikel> huidigeVoorraad = aanbod.get(productnaam);
         int startHoeveelheid = startVoorraad.get(productnaam);
         int huidigeHoeveelheid = huidigeVoorraad.size();
         double prijs = prijzen.get(productnaam);
         for (int j = huidigeHoeveelheid; j < startHoeveelheid; j++) {
-            huidigeVoorraad.add(new Artikel(productnaam, prijs));
+            huidigeVoorraad.add(new Artikel(productnaam, (int) prijs));
         }
         aanbod.put(productnaam, huidigeVoorraad);
     }
@@ -54,7 +53,6 @@ public class KantineAanbod {
      * Private methode om een Artikel van de stapel artikelen af te pakken. Retourneert null als de
      * stapel leeg is.
      */
-
     private Artikel getArtikel(ArrayList<Artikel> stapel) {
         if (stapel == null) {
             return null;
@@ -70,13 +68,11 @@ public class KantineAanbod {
         }
     }
 
-
-
     /**
      * Publieke methode om een artikel via naam van de stapel te pakken. Retouneert null als artikel
      * niet bestaat of niet op voorraad is.
      *
-     * @param naam (van artikel)
+     * @param productnaam (van artikel)
      * @return artikel (of null)
      */
 
