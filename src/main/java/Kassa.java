@@ -1,3 +1,4 @@
+import javax.print.Doc;
 import java.util.Iterator;
 
 public class Kassa {
@@ -21,8 +22,30 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        totaalPrijs += klant.getTotaalPrijs();
-        aantalArtikelen += klant.getAantalArtikelen();
+        Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
+        double totaalePrijs;
+        if(klant.getKlant() instanceof KantineMedewerker || klant.getKlant() instanceof Docent) {
+            if(!klant.getKlant().heeftMaximum()) {
+                totaalePrijs = klant.getTotaalPrijs() * (1 - klant.getKlant().geefKortingsPercentage());
+            } else {
+                double totaleKorting = klant.getTotaalPrijs() - (klant.getTotaalPrijs() * (1 - klant.getKlant().geefKortingsPercentage()));
+                if (totaleKorting > klant.getKlant().geefMaximum()) {
+                    totaalePrijs = klant.getTotaalPrijs() - klant.getKlant().geefMaximum();
+                } else {
+                    totaalePrijs = klant.getTotaalPrijs() * (1 - klant.getKlant().geefKortingsPercentage());
+                }
+            }
+        } else {
+            totaalePrijs = klant.getTotaalPrijs();
+        }
+        try {
+            betaalwijze.betaal(totaalePrijs);
+            totaalPrijs += klant.getTotaalPrijs();
+            aantalArtikelen += klant.getAantalArtikelen();
+        } catch (TeWeinigGeldException e) {
+            e.printStackTrace();
+            System.out.println("Betaling mislukt!");
+        }
     }
 
     /**
