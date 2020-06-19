@@ -47,4 +47,8 @@ public class Kantine {
         return kassa;
    }
 
+    public void setDagAanbieding(String dagAanbieding) {
+        kantineaanbod.setDagAanbieding(dagAanbieding);
+    }
+
 }

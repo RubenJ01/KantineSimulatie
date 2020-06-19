@@ -19,5 +19,5 @@ public class Pinpas extends Betaalwijze {
             saldo -= tebetalen;
         }
         throw new TeWeinigGeldException();
-    }
+}
 }

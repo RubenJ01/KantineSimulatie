@@ -2,10 +2,18 @@ public class Artikel {
 
     private String naam;
     private int prijs;
+    private int korting;
+
+    public Artikel(String naam, int prijs, int korting) {
+        this.naam = naam;
+        this.prijs = prijs;
+        this.korting = korting;
+    }
 
     public Artikel(String naam, int prijs) {
         this.naam = naam;
         this.prijs = prijs;
+        this.korting = 0;
     }
 
     public Artikel() {
@@ -31,4 +39,13 @@ public class Artikel {
     public String toString() {
         return getNaam() + "/n" + getPrijs();
     }
+
+    public int getKorting() {
+        return korting;
+    }
+
+    public void setKorting(int korting) {
+        this.korting = korting;
+    }
+
 }

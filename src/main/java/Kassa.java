@@ -6,7 +6,6 @@ public class Kassa {
     private double totaalPrijs;
     private int aantalArtikelen;
 
-
     /**
      * Constructor
      */
