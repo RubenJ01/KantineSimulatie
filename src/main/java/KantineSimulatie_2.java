@@ -49,7 +49,7 @@ public class KantineSimulatie2 {
      *
      */
     public KantineSimulatie2() {
-        kantine = new Kantine();
+        kantine = new Kantine(manager);
         random = new Random();
         int[] hoeveelheden =
                 getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);

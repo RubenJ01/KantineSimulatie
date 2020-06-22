@@ -1,3 +1,4 @@
+import javax.persistence.EntityManager;
 import javax.print.Doc;
 import java.util.Iterator;
 
@@ -5,12 +6,13 @@ public class Kassa {
 
     private double totaalPrijs;
     private int aantalArtikelen;
+    private javax.persistence.EntityManager manager;
 
     /**
      * Constructor
      */
-    public Kassa(KassaRij kassarij) {
-
+    public Kassa(KassaRij kassarij, EntityManager manager) {
+        this.manager = manager;
     }
 
     /**
@@ -22,16 +24,18 @@ public class Kassa {
      */
     public void rekenAf(Dienblad klant) {
         Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
+        Persoon persoon = klant.getKlant();
         double totaalePrijs;
-        if(klant.getKlant() instanceof KantineMedewerker || klant.getKlant() instanceof Docent) {
-            if(!klant.getKlant().heeftMaximum()) {
-                totaalePrijs = klant.getTotaalPrijs() * (1 - klant.getKlant().geefKortingsPercentage());
+        if(persoon instanceof KortingskaartHouder) {
+            final KortingskaartHouder kortingskaartHouder = (KortingskaartHouder) persoon;
+            if(!kortingskaartHouder.heeftMaximum()) {
+                totaalePrijs = klant.getTotaalPrijs() * (1 - kortingskaartHouder.geefKortingsPercentage());
             } else {
-                double totaleKorting = klant.getTotaalPrijs() - (klant.getTotaalPrijs() * (1 - klant.getKlant().geefKortingsPercentage()));
-                if (totaleKorting > klant.getKlant().geefMaximum()) {
-                    totaalePrijs = klant.getTotaalPrijs() - klant.getKlant().geefMaximum();
+                double totaleKorting = klant.getTotaalPrijs() - (klant.getTotaalPrijs() * (1 - kortingskaartHouder.geefKortingsPercentage()));
+                if (totaleKorting > kortingskaartHouder.geefMaximum()) {
+                    totaalePrijs = klant.getTotaalPrijs() - kortingskaartHouder.geefMaximum();
                 } else {
-                    totaalePrijs = klant.getTotaalPrijs() * (1 - klant.getKlant().geefKortingsPercentage());
+                    totaalePrijs = klant.getTotaalPrijs() * (1 - kortingskaartHouder.geefKortingsPercentage());
                 }
             }
         } else {

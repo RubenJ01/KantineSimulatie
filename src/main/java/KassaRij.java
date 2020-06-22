@@ -28,7 +28,7 @@ public class KassaRij {
      */
     public Dienblad eerstePersoonInRij() {
         if (erIsEenRij()) {
-            return rij.get(0);
+            return rij.get(0); //first / last?
         }
         return null;
     }
@@ -40,5 +40,5 @@ public class KassaRij {
      */
     public boolean erIsEenRij() {
         return rij.size() > 0;
-    }
+    } // isEmpty?
 }
