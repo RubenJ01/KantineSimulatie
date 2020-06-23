@@ -6,7 +6,7 @@ public class Kassa {
 
     private double totaalPrijs;
     private int aantalArtikelen;
-    private javax.persistence.EntityManager manager;
+    private EntityManager manager;
 
     /**
      * Constructor
@@ -23,6 +23,7 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
+        Factuur f = new Factuur();
         Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
         Persoon persoon = klant.getKlant();
         double totaalePrijs;
@@ -49,6 +50,8 @@ public class Kassa {
             e.printStackTrace();
             System.out.println("Betaling mislukt!");
         }
+
+
     }
 
     /**

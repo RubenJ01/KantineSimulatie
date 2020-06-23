@@ -4,7 +4,7 @@ import javax.persistence.Persistence;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-public class KantineSimulatie2 {
+public class KantineSimulatie_2 {
 
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("KantineSimulatie");
     private EntityManager manager;
@@ -47,8 +47,9 @@ public class KantineSimulatie2 {
     /**
      * Constructor
      *
-     */
-    public KantineSimulatie2() {
+ */
+    public KantineSimulatie_2() {
+        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
         kantine = new Kantine(manager);
         random = new Random();
         int[] hoeveelheden =
@@ -66,7 +67,7 @@ public class KantineSimulatie2 {
      * @param min minimale waarde
      * @param max maximale waarde
      * @return De array met random getallen
-     */
+ */
     private int[] getRandomArray(int lengte, int min, int max) {
         int[] temp = new int[lengte];
         for (int i = 0; i < lengte; i++) {
@@ -82,6 +83,7 @@ public class KantineSimulatie2 {
      * @param max maximale waarde inclusief
      * @return Een random getal
      */
+
     private int getRandomValue(int min, int max) {
         return random.nextInt(max - min + 1) + min;
     }
@@ -107,7 +109,7 @@ public class KantineSimulatie2 {
      *
      * @param dagen het aantal dagen dat deze simulatie duurt
      */
-    //
+
     public void simuleer(int dagen) {
         manager = ENTITY_MANAGER_FACTORY.createEntityManager();
         // for lus voor dagen
@@ -175,7 +177,9 @@ public class KantineSimulatie2 {
             dagen = Integer.parseInt(args[0]);
         }
 
-        KantineSimulatie2 kantineSimulatie = new KantineSimulatie2();
+        KantineSimulatie_2 kantineSimulatie = new KantineSimulatie_2();
         kantineSimulatie.simuleer(dagen);
     }
+
+
 }

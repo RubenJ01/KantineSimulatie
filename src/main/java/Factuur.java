@@ -5,6 +5,7 @@
     import java.io.Serializable;
     import java.util.ArrayList;
     import java.util.Iterator;
+    import java.util.List;
 
     @Entity
     @Table(name = "factuur")
@@ -25,8 +26,8 @@
         private double totaal;
 
         @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-        @JoinTable(name = "factuur.factuurregel", joinColumns = @JoinColumn(name = "factuur_id"))
-        private ArrayList<FactuurRegel> regels;
+        @JoinTable(name = "factuur_factuurregel", joinColumns = @JoinColumn(name = "factuur_id"), inverseJoinColumns = @JoinColumn(name = "factuurregel_id"))
+        private List<FactuurRegel> regels;
 
         public Factuur() {
             totaal = 0;
@@ -50,24 +51,43 @@
          * @param klant
          */
         private void verwerkBestelling(Dienblad klant) {
+            Iterator<Artikel> artikelIterator = klant.lopenDoorArtikelen();
             Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
             Persoon persoon = klant.getKlant();
             double totaalePrijs;
+            double totaaleKorting;
             if(persoon instanceof KortingskaartHouder) {
                 final KortingskaartHouder kortingskaartHouder = (KortingskaartHouder) persoon;
                 if(!kortingskaartHouder.heeftMaximum()) {
                     totaalePrijs = klant.getTotaalPrijs() * (1 - kortingskaartHouder.geefKortingsPercentage());
+                    totaaleKorting = klant.getTotaalPrijs()-totaalePrijs;
                 } else {
-                    double totaleKorting = klant.getTotaalPrijs() - (klant.getTotaalPrijs() * (1 - kortingskaartHouder.geefKortingsPercentage()));
-                    if (totaleKorting > kortingskaartHouder.geefMaximum()) {
+                    totaaleKorting = klant.getTotaalPrijs() - (klant.getTotaalPrijs() * (1 - kortingskaartHouder.geefKortingsPercentage()));
+                    if (totaaleKorting > kortingskaartHouder.geefMaximum()) {
                         totaalePrijs = klant.getTotaalPrijs() - kortingskaartHouder.geefMaximum();
+                        totaaleKorting = 1;
                     } else {
                         totaalePrijs = klant.getTotaalPrijs() * (1 - kortingskaartHouder.geefKortingsPercentage());
                     }
                 }
             } else {
                 totaalePrijs = klant.getTotaalPrijs();
+                totaaleKorting = 0;
             }
+
+
+
+            korting += totaaleKorting;
+            totaal += totaalePrijs;
+            while (artikelIterator.hasNext()) {
+                Artikel a = artikelIterator.next();
+                totaalePrijs += a.getPrijs();
+                totaaleKorting += a.getKorting();
+
+                regels.add(new FactuurRegel(this, a));
+            }
+
+
         }
 
         /**

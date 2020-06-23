@@ -1,7 +1,7 @@
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
+/**
 public class KantineSimulatie1 {
 
     private Kantine kantine;
@@ -12,7 +12,7 @@ public class KantineSimulatie1 {
 
     /**
      * Constructor
-     */
+
     public KantineSimulatie1() {
         kantine = new Kantine(manager);
     }
@@ -22,7 +22,7 @@ public class KantineSimulatie1 {
      * verloop van de kantine
      *
      * @param dagen
-     */
+
     public void simuleer(int dagen) {
 
         // herhaal voor elke dag
@@ -44,7 +44,7 @@ public class KantineSimulatie1 {
 
     /**
      * Start een simulatie
-     */
+
     public static void main(String[] args) {
         int dagen;
 
@@ -57,4 +57,4 @@ public class KantineSimulatie1 {
         KantineSimulatie1 test = new KantineSimulatie1();
         test.simuleer(dagen);
     }
-}
+*/

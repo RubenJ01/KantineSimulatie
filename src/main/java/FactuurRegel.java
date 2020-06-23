@@ -1,15 +1,17 @@
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 public class FactuurRegel implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
     private Factuur factuur;
 
+    @Embedded
     private Artikel artikel;
 
     public FactuurRegel() {
@@ -21,13 +23,10 @@ public class FactuurRegel implements Serializable {
     }
 
     public Artikel getArtikel(){
-        return Artikel;
+        return artikel;
     }
 
-    /**
-     * @return een printbare factuurregel
-     */
-    public String toString() {
-        // method body omitted
+    public Factuur getFactuur() {
+        return factuur;
     }
 }
