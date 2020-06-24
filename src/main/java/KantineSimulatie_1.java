@@ -47,7 +47,6 @@ public class KantineSimulatie1 {
 
     public static void main(String[] args) {
         int dagen;
-
         if (args.length == 0) {
             dagen = DAGEN;
         } else {

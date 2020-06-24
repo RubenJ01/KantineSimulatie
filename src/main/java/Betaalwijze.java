@@ -1,6 +1,6 @@
 public abstract class Betaalwijze {
 
-    protected double saldo;
+    protected double saldo = 2000000;
 
     /**
      * Methode om krediet te initialiseren

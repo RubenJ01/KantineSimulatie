@@ -23,13 +23,13 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        Factuur f = new Factuur();
+        // Factuur f = new Factuur();
         Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
         Persoon persoon = klant.getKlant();
         double totaalePrijs;
-        if(persoon instanceof KortingskaartHouder) {
+        if (persoon instanceof KortingskaartHouder) {
             final KortingskaartHouder kortingskaartHouder = (KortingskaartHouder) persoon;
-            if(!kortingskaartHouder.heeftMaximum()) {
+            if (!kortingskaartHouder.heeftMaximum()) {
                 totaalePrijs = klant.getTotaalPrijs() * (1 - kortingskaartHouder.geefKortingsPercentage());
             } else {
                 double totaleKorting = klant.getTotaalPrijs() - (klant.getTotaalPrijs() * (1 - kortingskaartHouder.geefKortingsPercentage()));
@@ -44,7 +44,7 @@ public class Kassa {
         }
         try {
             betaalwijze.betaal(totaalePrijs);
-            totaalPrijs += klant.getTotaalPrijs();
+            totaalPrijs += totaalePrijs;
             aantalArtikelen += klant.getAantalArtikelen();
         } catch (TeWeinigGeldException e) {
             e.printStackTrace();
@@ -83,13 +83,11 @@ public class Kassa {
         aantalArtikelen = 0;
     }
 
-    public void berekenAantalArtikelenEnPrijs(Dienblad dienblad)
-    {
+    public void berekenAantalArtikelenEnPrijs(Dienblad dienblad) {
         Iterator<Artikel> it = dienblad.lopenDoorArtikelen();
-        while(it.hasNext())
-        {
-           totaalPrijs += it.next().getPrijs();
-           aantalArtikelen++;
+        while (it.hasNext()) {
+            totaalPrijs += it.next().getPrijs();
+            aantalArtikelen++;
         }
     }
 }

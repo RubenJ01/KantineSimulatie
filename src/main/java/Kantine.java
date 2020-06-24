@@ -30,8 +30,6 @@ public class Kantine {
      * voor de kassa.
      */
     public void loopPakSluitAan(Dienblad dienblad, String[] artikelnamen) {
-        Persoon persoon = new Persoon();
-        dienblad.setKlant(persoon);
         for(String artikel : artikelnamen) {
             dienblad.voegToe(kantineaanbod.getArtikel(artikel));
         }

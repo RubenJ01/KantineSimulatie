@@ -17,7 +17,7 @@ public class KassaRij {
      * @param klant
      */
     public void sluitAchteraan(Dienblad klant) {
-        rij.add(klant);
+        rij.push(klant);
     }
 
     /**
@@ -28,7 +28,7 @@ public class KassaRij {
      */
     public Dienblad eerstePersoonInRij() {
         if (erIsEenRij()) {
-            return rij.get(0); //first / last?
+            return rij.pop(); //first / last?
         }
         return null;
     }

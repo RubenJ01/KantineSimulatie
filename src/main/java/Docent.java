@@ -6,8 +6,8 @@ public class Docent extends Persoon implements KortingskaartHouder {
     private boolean heeftMaximum;
     private double maximum;
 
-    public Docent(int bsn, String voornaam, String achternaam, Datum datum, char geslacht, String afkorting, String afdeling) {
-        super(bsn, voornaam, achternaam, datum, geslacht);
+    public Docent(int bsn, String voornaam, String achternaam, Datum datum, char geslacht, String afkorting, String afdeling, Betaalwijze betaalwijze) {
+        super(bsn, voornaam, achternaam, datum, geslacht, betaalwijze);
         this.afkorting = afkorting;
         this.afdeling = afdeling;
         this.kortingsPercentage = 0.25;
@@ -16,7 +16,7 @@ public class Docent extends Persoon implements KortingskaartHouder {
     }
 
     public Docent() {
-
+        this(15, "Robert", "Hein", new Datum(10, 9, 2001), 'm', "r.h", "hbo", new Contant());
     }
 
     public String getAfkorting() {

@@ -7,17 +7,17 @@ public class Persoon {
     private char geslacht;
     private Betaalwijze betaalwijze;
 
-    public Persoon(int bsn, String voornaam, String achternaam, Datum datum, char geslacht) {
+    public Persoon(int bsn, String voornaam, String achternaam, Datum datum, char geslacht, Betaalwijze betaalwijze) {
         this.bsn = bsn;
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.datum = datum;
         this.geslacht = geslacht;
+        this.betaalwijze = betaalwijze;
     }
 
     public Persoon() {
-        this.datum = new Datum(0, 0,0);
-        this.geslacht = 'm';
+
     }
 
     public void setBsn(int bsn) {

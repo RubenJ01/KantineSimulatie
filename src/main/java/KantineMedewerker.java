@@ -6,8 +6,8 @@ public class KantineMedewerker extends Persoon implements KortingskaartHouder{
     private boolean heeftMaximum;
     private double maximum;
 
-    public KantineMedewerker(int bsn, String voornaam, String achternaam, Datum datum, char geslacht, int medewerkersnummer, boolean magAanKassaStaan) {
-        super(bsn, voornaam, achternaam, datum, geslacht);
+    public KantineMedewerker(int bsn, String voornaam, String achternaam, Datum datum, char geslacht, int medewerkersnummer, boolean magAanKassaStaan, Betaalwijze betaalwijze) {
+        super(bsn, voornaam, achternaam, datum, geslacht, betaalwijze);
         this.medewerkersnummer = medewerkersnummer;
         this.magAanKassaStaan = magAanKassaStaan;
         this.kortingsPercentage = 0.35;
@@ -16,7 +16,7 @@ public class KantineMedewerker extends Persoon implements KortingskaartHouder{
     }
 
     public KantineMedewerker() {
-
+        this(16, "Arjan", "Bakema", new Datum(10, 9, 2001), 'm', 1, true, new Contant());
     }
 
     public int getMedewerkersnummer() {

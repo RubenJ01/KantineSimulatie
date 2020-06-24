@@ -9,7 +9,6 @@ public class KantineSimulatie_2 {
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("KantineSimulatie");
     private EntityManager manager;
 
-
     // kantine
     private Kantine kantine;
 
@@ -113,12 +112,13 @@ public class KantineSimulatie_2 {
     public void simuleer(int dagen) {
         manager = ENTITY_MANAGER_FACTORY.createEntityManager();
         // for lus voor dagen
-        for(int i = 0; i < dagen; i++) {
+        for(int dag = 0; dag < dagen; dag++) {
 
             kantine.setDagAanbieding(artikelnamen[getRandomValue(0, artikelnamen.length-1)]);
 
             // laat de personen maar komen...
-            for (int j = 0; j < getRandomValue(1, 100); j++) {
+            int randomValue = getRandomValue(1, 100);
+            for (int j = 0; j < randomValue; j++) {
 
                 // maak persoon en dienblad aan, koppel ze
                 int getal = getRandomValue(1, 100);
@@ -131,7 +131,7 @@ public class KantineSimulatie_2 {
                     persoon = new Docent();
                 }
                 Dienblad dienblad = new Dienblad(persoon);
-                System.out.println(persoon.toString());
+                // System.out.println(persoon.toString());
                 // en bedenk hoeveel artikelen worden gepakt
                 int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
 
@@ -146,6 +146,7 @@ public class KantineSimulatie_2 {
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
                 kantine.loopPakSluitAan(dienblad, artikelen);
+
             }
 
             // verwerk rij voor de kassa
@@ -154,7 +155,8 @@ public class KantineSimulatie_2 {
             // druk de dagtotalen af en hoeveel personen binnen
             // zijn gekomen
             Kassa kassa = kantine.getKassa();
-            System.out.println("Aantal personen in kantine: " + 100);
+            System.out.println("Dag: " + (dag+1));
+            System.out.println("Aantal personen in kantine: " + randomValue);
             System.out.println("Aantal artikelen dat de kassa heeft gepasseerd: " + kassa.aantalArtikelen());
             System.out.println("Aantal geld dat in de kassa zit: " + kassa.hoeveelheidGeldInKassa());
 

@@ -21,6 +21,7 @@
 
             <!-- The JDBC URL to the database instance -->
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/kantine?serverTimezone=EST" />
+            <property name = "hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 
             <!-- PostgreSQL JDBC connection url example -->
             <!--
