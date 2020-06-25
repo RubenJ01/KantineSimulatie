@@ -1,17 +1,21 @@
 import javax.persistence.EntityManager;
 import javax.print.Doc;
+import java.time.LocalDate;
 import java.util.Iterator;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 public class Kassa {
 
     private double totaalPrijs;
     private int aantalArtikelen;
-    private EntityManager manager;
+    private javax.persistence.EntityManager manager;
 
     /**
      * Constructor
      */
-    public Kassa(KassaRij kassarij, EntityManager manager) {
+    public Kassa(KassaRij kassarij, javax.persistence.EntityManager manager) {
         this.manager = manager;
     }
 
@@ -23,7 +27,7 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        // Factuur f = new Factuur();
+        Factuur factuur = new Factuur(klant, LocalDate.now().plusDays(KantineSimulatie_2.huidige_datum));
         Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
         Persoon persoon = klant.getKlant();
         double totaalePrijs;
@@ -42,16 +46,19 @@ public class Kassa {
         } else {
             totaalePrijs = klant.getTotaalPrijs();
         }
+        EntityTransaction transaction;
         try {
+            transaction = manager.getTransaction();
+            transaction.begin();
             betaalwijze.betaal(totaalePrijs);
             totaalPrijs += totaalePrijs;
             aantalArtikelen += klant.getAantalArtikelen();
+            manager.persist(factuur);
+            transaction.commit();
         } catch (TeWeinigGeldException e) {
             e.printStackTrace();
             System.out.println("Betaling mislukt!");
         }
-
-
     }
 
     /**
